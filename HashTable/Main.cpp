@@ -9,7 +9,7 @@ int main()
 
   char input[100];
   bool quit = false;
-
+  
   while (!quit) {
 
     cin.get(input, 100);

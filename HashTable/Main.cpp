@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include "Student.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int main()
     cin.get();
 
     if (strcmp(input, "ADD") == 0 || strcmp(input, "add") == 0) {
-
+      
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
       

@@ -1,8 +1,12 @@
 #include <iostream>
 #include <cstring>
 #include "Student.h"
+#include "Node.h"
 
 using namespace std;
+
+int hashFunc(int id, int size);
+void ADD(int index, Node** &table, Student* std);
 
 int main()
 {
@@ -10,6 +14,13 @@ int main()
 
   char input[100];
   bool quit = false;
+
+  int size = 151;
+  Node** hashId = new Node*[size];
+
+  for (int i = 0; i < size; i++) {
+    hashId[i] = NULL;
+  }
   
   while (!quit) {
 
@@ -17,13 +28,30 @@ int main()
     cin.get();
 
     if (strcmp(input, "ADD") == 0 || strcmp(input, "add") == 0) {
-      
+      Student* newstd = new Student();
+      int id;
+      float gpa;
+      cout << "First Name: ";
+      cin.get(newstd->getFirst(), 100);
+      cin.get();
+      cout << "Last Name: ";
+      cin.get(newstd->getLast(), 100);
+      cin.get();
+      cout << "Student ID: ";
+      cin >> id;
+      cin.get();
+      newstd->setId(id);
+      cout << "Student GPA: ";
+      cin >> gpa;
+      cin.get();
+      newstd->setGpa(gpa);
+      ADD(hashFunc(id, size), hashId, newstd);
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
       
     }
     else if (strcmp(input, "DELETE") == 0 || strcmp(input, "delete") == 0) {
-
+      
     }
     else if (strcmp(input, "QUIT") == 0 || strcmp(input, "quit") == 0) {
       quit = true;
@@ -31,6 +59,26 @@ int main()
     else {
       cout << "Invalid command" << endl;
     }
+  }
 
+  for (int i = 0; i < 151; i++) {
+    if (hashId[i] != NULL) {
+      cout << hashId[i]->getStudent()->getId() << endl;
+    }
+    else {
+      cout << i << endl; 
+    }
+  }
+  
+}
+
+int hashFunc(int id, int size) {
+  int index = id % size;
+  return index;
+}
+
+void ADD(int index, Node** &table, Student* std) {
+  if (table[index] == NULL) {
+    table[index] = new Node(std);
   }
 }

@@ -8,6 +8,7 @@ using namespace std;
 int hashFunc(int id, int size);
 void ADD(int index, Node** &table, Student* std, Node* &head);
 bool resizeCheck(Node** table, int index);
+void PRINT(Node** table, int size);
 
 int main()
 {
@@ -48,13 +49,9 @@ int main()
       newstd->setGpa(gpa);*/
       Node* head = hashId[hashFunc(id, size)];
       ADD(hashFunc(id, size), hashId, newstd, head);
-      if (resizeCheck(hashId, hashFunc(id, size)) == true) {
-	//resize();
-	//rehash();
-      }
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
-      
+      PRINT(hashId, size);
     }
     else if (strcmp(input, "DELETE") == 0 || strcmp(input, "delete") == 0) {
       
@@ -66,21 +63,6 @@ int main()
       cout << "Invalid command" << endl;
     }
   }
-
-  for (int i = 0; i < 151; i++) {
-    if (hashId[i] != NULL) {
-      cout << hashId[i]->getStudent()->getId() << endl;
-      cout << hashId[i]->getNext()->getStudent()->getId() << endl;
-      hashId[i] = hashId[i]->getNext();
-      cout << hashId[i]->getNext()->getStudent()->getId() << endl;
-      hashId[i] = hashId[i]->getNext();
-      cout << hashId[i]->getNext()->getStudent()->getId() << endl;
-    }
-    else {
-      cout << i << endl; 
-    }
-  }
-  
 }
 
 int hashFunc(int id, int size) {
@@ -114,7 +96,17 @@ bool resizeCheck(Node** table, int index) {
   if (counter == 3) {
     return true;
   }
-
   return false;
-  
+}
+
+void PRINT(Node** table, int size) {
+  for (int i = 0; i < size; i++) {
+    if (table[i] != NULL) {
+      Node* current = table[i];
+      while (current != NULL) {
+	cout << current->getStudent()->getId() << endl;
+	current = current->getNext();
+      }
+    }
+  }
 }

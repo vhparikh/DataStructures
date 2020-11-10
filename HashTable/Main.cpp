@@ -7,6 +7,7 @@ using namespace std;
 
 int hashFunc(int id, int size);
 void ADD(int index, Node** &table, Student* std, Node* &head);
+bool resizeCheck(Node** table, int index);
 
 int main()
 {
@@ -47,6 +48,10 @@ int main()
       newstd->setGpa(gpa);*/
       Node* head = hashId[hashFunc(id, size)];
       ADD(hashFunc(id, size), hashId, newstd, head);
+      if (resizeCheck(hashId, hashFunc(id, size)) == true) {
+	//resize();
+	//rehash();
+      }
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
       
@@ -95,4 +100,21 @@ void ADD(int index, Node** &table, Student* std, Node* &head) {
     Node* temp = new Node(std);
     head->setNext(temp);
   }
+}
+
+bool resizeCheck(Node** table, int index) {
+  int counter = 0;
+  Node* current = table[index];
+
+  while (current != NULL) {
+    current = current->getNext();
+    counter++;
+  }
+
+  if (counter == 3) {
+    return true;
+  }
+
+  return false;
+  
 }

@@ -10,6 +10,7 @@ void ADD(int index, Node** &table, Student* std, Node* &head);
 bool resizeCheck(Node** table, int index);
 void PRINT(Node** table, int size);
 void rehash(Node** &table, int* size);
+void DELETE(Node** &table, int index, int id);
 
 int main()
 {
@@ -60,7 +61,11 @@ int main()
       PRINT(hashId, size);
     }
     else if (strcmp(input, "DELETE") == 0 || strcmp(input, "delete") == 0) {
-      
+      int id;
+      cout << "Enter the id of the student you would like to delete: ";
+      cin >> id;
+      cin.get();
+      DELETE(hashId, hashFunc(id, size), id);
     }
     else if (strcmp(input, "QUIT") == 0 || strcmp(input, "quit") == 0) {
       quit = true;
@@ -143,4 +148,26 @@ void rehash(Node** &table, int* size) {
   table = newTbl;
   *size = newSize;
   
+}
+
+void DELETE(Node** &table, int index, int id) {
+  Node* current = table[index];
+  char input[20];
+  while (current != NULL) {
+    if (current->getStudent()->getId() == id) {
+      cout << "Do you want to remove this student from the table y/n?"
+	   << current->getStudent()->getId() << endl;
+      cin.get(input, 20);
+      cin.get();
+      if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0) {
+	Node* temp = current->getNext();
+	delete current;
+	//current = temp;
+	table[index] = temp;
+	cout << "Student has been removed" << endl;
+      }
+      return;
+    }
+    current = current->getNext();
+  }
 }

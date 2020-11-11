@@ -9,6 +9,7 @@ int hashFunc(int id, int size);
 void ADD(int index, Node** &table, Student* std, Node* &head);
 bool resizeCheck(Node** table, int index);
 void PRINT(Node** table, int size);
+void rehash(Node** &table, int* size);
 
 int main()
 {
@@ -49,6 +50,11 @@ int main()
       newstd->setGpa(gpa);*/
       Node* head = hashId[hashFunc(id, size)];
       ADD(hashFunc(id, size), hashId, newstd, head);
+      if (resizeCheck(hashId, hashFunc(id, size)) == true) {
+	rehash(hashId, &size);
+	cout << "rh done" << endl;
+	cout << size << endl;
+      }
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
       PRINT(hashId, size);
@@ -108,5 +114,33 @@ void PRINT(Node** table, int size) {
 	current = current->getNext();
       }
     }
+    /*else {
+      cout << i << endl;
+      }*/
   }
+}
+
+void rehash(Node** &table, int* size) {
+  int newSize = *(size) * 2;
+  Node** newTbl = new Node*[newSize];
+
+  for (int i = 0; i < newSize; i++) {
+    newTbl[i] = NULL; 
+  }
+  
+  for (int i = 0; i < *size; i++) {
+    if (table[i] != NULL) {
+      Node* current = table[i];
+      while (current != NULL) {
+	Node* head = newTbl[hashFunc(current->getStudent()->getId(), newSize)];
+	ADD(hashFunc(current->getStudent()->getId(), newSize), newTbl, current->getStudent(), head);
+	current = current->getNext();
+      }
+    }
+  }
+
+  delete[] table;
+  table = newTbl;
+  *size = newSize;
+  
 }

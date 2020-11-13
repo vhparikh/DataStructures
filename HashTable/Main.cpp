@@ -155,18 +155,29 @@ void DELETE(Node** &table, int index, int id) {
   char input[20];
   while (current != NULL) {
     if (current->getStudent()->getId() == id) {
-      cout << "Do you want to remove this student from the table y/n?"
+      cout << "Do you want to remove this student from the table y/n? "
 	   << current->getStudent()->getId() << endl;
       cin.get(input, 20);
       cin.get();
       if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0) {
 	Node* temp = current->getNext();
-	delete current;
+	current->~Node();
 	//current = temp;
 	table[index] = temp;
 	cout << "Student has been removed" << endl;
       }
       return;
+    }
+    else if (current->getNext()->getStudent()->getId() == id) {
+      cout << "Do you want to remove this student from the table y/n? "
+           << current->getNext()->getStudent()->getId() << endl;
+      cin.get(input, 20);
+      cin.get();
+      if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0) {
+	Node* temp = current->getNext()->getNext();
+	current->getNext()->~Node();
+	current->setNext(temp);
+      }
     }
     current = current->getNext();
   }

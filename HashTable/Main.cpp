@@ -1,5 +1,9 @@
 #include <iostream>
 #include <cstring>
+#include <iomanip>
+#include <fstream>
+#include <stdlib.h>
+#include <time.h>
 #include "Student.h"
 #include "Node.h"
 
@@ -152,27 +156,6 @@ void rehash(Node** &table, int* size) {
 
 void DELETE(Node** &table, int index, int id) {
   Node* current = table[index];
-
-  while (current != NULL) {
-    if (current->getStudent()->getId() == id) {
-      Node* temp = current->getNext();
-      current->~Node();
-      table[index] = temp;
-      return;
-    }
-    else if (current->getNext()->getStudent()->getId() == id) {
-      Node* temp = current->getNext()->getNext();
-      current->getNext()->~Node();
-      current->setNext(temp);
-      return;
-    }
-    current = current->getNext();
-  }
-  
-}
-
-/*void DELETE(Node** &table, int index, int id) {
-  Node* current = table[index];
   char input[20];
   while (current != NULL) {
     if (current->getStudent()->getId() == id) {
@@ -208,7 +191,8 @@ void DELETE(Node** &table, int index, int id) {
 	  current->setNext(NULL);
 	}
       }
+      return;
     }
     current = current->getNext();
   }
-  }*/
+}

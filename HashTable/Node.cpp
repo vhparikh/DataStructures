@@ -28,5 +28,4 @@ void Node::setNext(Node* newnxt) {
 
 Node::~Node() {
   delete std;
-  delete next;
 }

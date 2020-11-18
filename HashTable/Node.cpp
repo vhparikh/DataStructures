@@ -1,3 +1,7 @@
+//Created by Vatsal Parikh
+//Date: 11/17/20
+//.cpp file for node class comments are in .h file
+
 #include <iostream>
 #include <cstring>
 #include "Node.h"

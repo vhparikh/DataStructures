@@ -29,6 +29,18 @@ int main()
   for (int i = 0; i < size; i++) {
     hashId[i] = NULL;
   }
+
+  ifstream first;
+  first.open("Firstname.txt");
+  ifstream last;
+  last.open("Lastname.txt");
+  int firstLine = 0;
+  int lastLine = 0;
+  int id;
+  int rNum;
+  float gpa;
+  char in[20];
+  srand(time(NULL));
   
   while (!quit) {
 
@@ -37,29 +49,67 @@ int main()
 
     if (strcmp(input, "ADD") == 0 || strcmp(input, "add") == 0) {
       Student* newstd = new Student();
-      int id;
-      float gpa;
-      /*cout << "First Name: ";
+      cout << "First Name: ";
       cin.get(newstd->getFirst(), 100);
       cin.get();
       cout << "Last Name: ";
       cin.get(newstd->getLast(), 100);
-      cin.get();*/
+      cin.get();
       cout << "Student ID: ";
       cin >> id;
       cin.get();
       newstd->setId(id);
-      /*cout << "Student GPA: ";
+      cout << "Student GPA: ";
       cin >> gpa;
       cin.get();
-      newstd->setGpa(gpa);*/
+      newstd->setGpa(gpa);
       Node* head = hashId[hashFunc(id, size)];
       ADD(hashFunc(id, size), hashId, newstd, head);
       if (resizeCheck(hashId, hashFunc(id, size)) == true) {
 	rehash(hashId, &size);
-	cout << "rh done" << endl;
-	cout << size << endl;
       }
+    }
+    else if (strcmp(input, "random") == 0 || strcmp(input, "RANDOM") == 0) {
+      cout << "How many random students?" << endl;
+      cin >> rNum;
+      cin.get();
+
+      for (int i = 0; i < rNum; i++) {
+	Student* newstd = new Student();
+	firstLine = (rand() % 13);
+	lastLine = (rand() % 13);
+	cout << firstLine << " " << lastLine << endl;
+	
+	for (int j = 0; j < 13; j++) {
+	  if (firstLine == j) {
+	    first >> newstd->getFirst();
+	  }
+	  else {
+	    first >> in;
+	  }
+	  
+	  if (lastLine == j) {
+	    last >> newstd->getLast();
+	  }
+	  else {
+	    last >> in;
+	  }
+	}
+
+	first.close();
+	first.open("Firstname.txt");
+	last.close();
+	last.open("Lastname.txt");
+	newstd->setId(i + 1);
+	newstd->setGpa((float)(rand() % 400) / (float)(100));
+	Node* head = hashId[hashFunc(newstd->getId(), size)];
+	ADD(hashFunc(newstd->getId(), size), hashId, newstd, head);
+	if (resizeCheck(hashId, hashFunc(newstd->getId(), size)) == true) {
+	  rehash(hashId, &size);
+	}
+	cout << newstd->getFirst() << " " << newstd->getLast() << endl;
+      }
+      cout << "Students have been generated" << endl;
     }
     else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
       PRINT(hashId, size);
@@ -119,13 +169,12 @@ void PRINT(Node** table, int size) {
     if (table[i] != NULL) {
       Node* current = table[i];
       while (current != NULL) {
-	cout << current->getStudent()->getId() << endl;
+	cout << current->getStudent()->getFirst() << " " << current->getStudent()->getLast() << ", "
+	     << current->getStudent()->getId() << ", "
+	     << fixed << setprecision(2) << current->getStudent()->getGpa() << endl;
 	current = current->getNext();
       }
     }
-    /*else {
-      cout << i << endl;
-      }*/
   }
 }
 
@@ -160,7 +209,9 @@ void DELETE(Node** &table, int index, int id) {
   while (current != NULL) {
     if (current->getStudent()->getId() == id) {
       cout << "Do you want to remove this student from the table y/n? "
-	   << current->getStudent()->getId() << endl;
+	   << current->getStudent()->getFirst() << " " << current->getStudent()->getLast() << ", "
+	   << current->getStudent()->getId() << ", "
+	   << fixed << setprecision(2) << current->getStudent()->getGpa() << endl;
       cin.get(input, 20);
       cin.get();
       if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0) {
@@ -178,7 +229,9 @@ void DELETE(Node** &table, int index, int id) {
     }
     else if (current->getNext()->getStudent()->getId() == id) {
       cout << "Do you want to remove this student from the table y/n? "
-           << current->getNext()->getStudent()->getId() << endl;
+           << current->getStudent()->getFirst() << " " << current->getStudent()->getLast() << ", "
+	   << current->getStudent()->getId() << ", "
+	   << fixed << setprecision(2) << current->getStudent()->getGpa() << endl;
       cin.get(input, 20);
       cin.get();
       if (strcmp(input, "Y") == 0 || strcmp(input, "y") == 0) {
@@ -190,6 +243,7 @@ void DELETE(Node** &table, int index, int id) {
 	else {
 	  current->setNext(NULL);
 	}
+	cout << "Student has been removed" << endl;
       }
       return;
     }

@@ -1,38 +1,95 @@
 #include <iostream>
 #include <cstring>
+#include <math.h>
 
 using namespace std;
 
-int* BUILD(int* vals);
-
+void buildHelper(int* vals, int size);
+void build(int* vals, int index, int size);
+//void print(int* vals, int size);
+  
 int main() {
+  char input[30];
+  int* heap = new int[100];
+  int num;
+  int inNum;
+  int counter = 0;
+  int size = 0;
+  bool quit = false;
 
-  int* heap = new int[6];
-
-  cout << "Welcome heap lets start with some values to add to the heap" << endl;
-
-  for (int i = 1; i < 6; i++) {
-    cin >> heap[i];
+  for (int i = 0; i < 100; i++) {
+    heap[i] = 0;
   }
-
-  heap = BUILD(heap);
-  cout << heap[1] << endl;
-}
-
-int* BUILD(int* vals) {
-  int* newHeap = new int[6];
-
-  int highval = -1000;
   
-  for (int i = 1; i < 6; i++) {
-    if (vals[i] > highval) {
-      highval = vals[i];
+  while (quit == false) {
+    cout << "Command:" << endl;
+    cin >> input;
+
+    if (strcmp(input, "add") == 0) {
+      cout << "How many numbers would you like to input?" << endl;
+      cin >> inNum;
+      counter = 0;
+      while (counter != inNum) {
+	cout << "Enter a number:" << endl;
+	cin >> num;
+	if (num >= 1 && num <= 100) {
+	  heap[size] = num;
+	  size++;
+	  counter++;
+	}
+	else {
+	  cout << "invalid number" << endl;
+	}
+      }
+      buildHelper(heap, size);
+      cout << "built" << endl;
     }
+    else if (strcmp(input, "file") == 0) {
+      //build with file
+    }
+    else if (strcmp(input, "delete") == 0) {
+      //delete
+    }
+    else if (strcmp(input, "print") == 0) {
+      //      print(heap, size);
+    }
+    else if (strcmp(input, "quit") == 0) {
+      quit = true;
+    }
+    else {
+      cout << "invalid command" << endl;
+    } 
+  }
+}
+
+void buildHelper(int* vals, int size) {
+  int startpoint = (size/2)-1;
+  for (int i = startpoint; i >= 0; i--) {
+    build(vals, i, size);
+    cout << "called " << i << endl;
+  }
+}
+
+void build(int* vals, int index, int size) {
+  int parentIndex = index;
+  int leftIndex = (2*index)+1;
+  int rightIndex = (2*index)+2;
+
+  if (leftIndex < size && vals[leftIndex] > vals[parentIndex]) {
+    parentIndex = leftIndex;
   }
 
-  newHeap[1] = highval;
+  if (rightIndex < size && vals[rightIndex] > vals[parentIndex]) {
+    parentIndex = rightIndex;
+  }
 
-  delete vals;
-  return newHeap;
+  if (parentIndex != index) {
+    int temp = vals[index];
+    vals[index] = vals[parentIndex];
+    vals[parentIndex] = temp;
+
+    build(vals, parentIndex, size);
+  }
   
 }
+

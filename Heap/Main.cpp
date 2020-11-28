@@ -1,3 +1,8 @@
+//Created by Vatsal Parikh
+//Date: 11/24/2020
+//create max heap
+
+//imports
 #include <iostream>
 #include <cstring>
 #include <math.h>
@@ -5,6 +10,7 @@
 
 using namespace std;
 
+//prototypes
 void buildHelper(int* vals, int size);
 void build(int* vals, int index, int size);
 void print(int* vals, int size);
@@ -23,6 +29,8 @@ int main() {
   for (int i = 0; i < 100; i++) {
     heap[i] = 0;
   }
+
+  cout << "Welcome to heap your commands are: add, file, delete, print, quit" << endl;
   
   while (quit == false) {
     cout << "Command:" << endl;
@@ -125,20 +133,23 @@ void print(int* vals, int size) {
 
   int counter = 0;
   int factor = 1;
-  cout << vals[0] << endl;
+
+  if (vals[0] >= 1 && vals[0] <= 1000) {
+    cout << vals[0] << endl;
+  }
   
   for (int i = 1; i < size; i++) {
-    cout << vals[i] << "(" << vals[(int)floor((i-1)/2)] << ")" << " ";
-    counter++;
-    if (factor * 2 == counter) {
-      factor = factor * 2;
-      counter = 0;
-      cout << endl;
+    if (vals[i] >= 1 || vals[i] <= 1000) {
+      cout << vals[i] << "(" << vals[(int)floor((i-1)/2)] << ")" << " ";
+      counter++;
+      if (factor * 2 == counter) {
+	factor = factor * 2;
+	counter = 0;
+	cout << endl;
+      }
     }
   }
-
   cout << endl;
-  
 }
 
 void deleteVal(int* vals, int* size, int num) {

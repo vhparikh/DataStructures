@@ -37,6 +37,7 @@ int main() {
     cout << "Command:" << endl;
     cin >> input;
 
+    //if user wants to add get values and then call sort
     if (strcmp(input, "add") == 0) {
       cout << "How many numbers would you like to input?" << endl;
       cin >> inNum;
@@ -55,6 +56,8 @@ int main() {
       }
       sort(heap, size);
     }
+
+    //if user wants to use file input get file name and get values then call sort
     else if (strcmp(input, "file") == 0) {
       cout << "File name:" << endl;
       cin >> input;
@@ -69,29 +72,39 @@ int main() {
       file.close();
       sort(heap, size);
     }
+
+    //if user wants to delete get value then delete and resort heap
     else if (strcmp(input, "delete") == 0) {
       cout << "What value would you like to delete from the heap?" << endl;
       cin >> num;
       deleteVal(heap, &size, num);
       sort(heap, size);
     }
+
+    //if user wants to print call print
     else if (strcmp(input, "print") == 0) {
       print(heap, size);
     }
+
+    //if user wants to quit set quit to true
     else if (strcmp(input, "quit") == 0) {
       quit = true;
     }
+
+    //otherwise it is an invalid command
     else {
       cout << "invalid command" << endl;
     } 
   }
 }
 
+//sorts array so it can form a max heap
 void sort(int* vals, int size) {
-  
+
+  //bubble sort loops
   for (int j = 0; j < size; j++) {
     for (int i = 0; i < size; i++) {
-      if (vals[i] < vals[i+1]) {
+      if (vals[i] < vals[i+1]) { //if the right val is higher then left val swap
 	int temp = vals[i];
 	vals[i] = vals[i+1];
 	vals[i+1] = temp;
@@ -100,15 +113,18 @@ void sort(int* vals, int size) {
   }
 }
 
+//prints so you can visualize heap
 void print(int* vals, int size) {
 
-  int counter = 0;
-  int factor = 1;
+  int counter = 0; //counts prints made on each linge
+  int factor = 1; //based on line number
 
+  //print root
   if (vals[0] >= 1 && vals[0] <= 1000) {
     cout << vals[0] << endl;
   }
-  
+
+  //go through and print rest if counter has hit its number based on current line end line
   for (int i = 1; i < size; i++) {
     if (vals[i] >= 1 || vals[i] <= 1000) {
       cout << vals[i] << "(" << vals[(int)floor((i-1)/2)] << ")" << " ";
@@ -123,10 +139,14 @@ void print(int* vals, int size) {
   cout << endl;
 }
 
+//deletes value from heap
 void deleteVal(int* vals, int* size, int num) {
 
+  //loop through array and find value
   for (int i = 0; i < *size; i++) {
-    if (vals[i] == num) {
+
+    //once value is found replace it with last val in array and reduce size by one
+    if (vals[i] == num) { 
       vals[i] = vals[*size-1];
       vals[*size-1] = 0;
       *size = *size - 1;

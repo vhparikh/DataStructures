@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <math.h>
+#include <fstream>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ int main() {
       while (counter != inNum) {
 	cout << "Enter a number:" << endl;
 	cin >> num;
-	if (num >= 1 && num <= 100) {
+	if (num >= 1 && num <= 1000) {
 	  heap[size] = num;
 	  size++;
 	  counter++;
@@ -46,7 +47,18 @@ int main() {
       sort(heap, size);
     }
     else if (strcmp(input, "file") == 0) {
-      //build with file
+      cout << "File name:" << endl;
+      cin >> input;
+      ifstream file;
+      file.open(input);
+
+      while (file >> num) {
+	heap[counter] = num;
+	counter++;
+	size++;
+      }
+      file.close();
+      sort(heap, size);
     }
     else if (strcmp(input, "delete") == 0) {
       cout << "What value would you like to delete from the heap?" << endl;

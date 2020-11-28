@@ -18,20 +18,23 @@ void deleteVal(int* vals, int* size, int num);
 void sort(int* vals, int size);
 
 int main() {
-  char input[30];
-  int* heap = new int[100];
-  int num;
-  int inNum;
-  int counter = 0;
-  int size = 0;
+
+  char input[30]; //for commands
+  int* heap = new int[100]; //stores heap
+  int num; //number user inputs
+  int inNum; //how many numbers the user wants to add
+  int counter = 0; //counts and keeps track of heap index
+  int size = 0; //keeps track of heap size
   bool quit = false;
 
+  //sets all values in heap to 0
   for (int i = 0; i < 100; i++) {
     heap[i] = 0;
   }
 
   cout << "Welcome to heap your commands are: add, file, delete, print, quit" << endl;
-  
+
+  //while user hasn't typed quit
   while (quit == false) {
     cout << "Command:" << endl;
     cin >> input;

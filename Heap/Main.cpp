@@ -8,7 +8,7 @@ void buildHelper(int* vals, int size);
 void build(int* vals, int index, int size);
 void print(int* vals, int size);
 void deleteVal(int* vals, int* size, int num);
-int* sort(int* &vals, int size);
+void sort(int* vals, int size);
 
 int main() {
   char input[30];
@@ -43,9 +43,7 @@ int main() {
 	  cout << "invalid number" << endl;
 	}
       }
-      cout << size << endl;
-      //buildHelper(heap, size);
-      heap = sort(heap, size);
+      sort(heap, size);
     }
     else if (strcmp(input, "file") == 0) {
       //build with file
@@ -54,7 +52,7 @@ int main() {
       cout << "What value would you like to delete from the heap?" << endl;
       cin >> num;
       deleteVal(heap, &size, num);
-      buildHelper(heap, size);
+      sort(heap, size);
     }
     else if (strcmp(input, "print") == 0) {
       print(heap, size);
@@ -75,27 +73,17 @@ void buildHelper(int* vals, int size) {
   }
 }
 
-int* sort(int* &vals, int size) {
-  int index = 0;
-  int highval = -1;
-  int* sorted = new int[size];
-
+void sort(int* vals, int size) {
+  
   for (int j = 0; j < size; j++) {
     for (int i = 0; i < size; i++) {
-      if (vals[i] > highval) {
-	highval = vals[i];
-	index = i;
+      if (vals[i] < vals[i+1]) {
+	int temp = vals[i];
+	vals[i] = vals[i+1];
+	vals[i+1] = temp;
       }
     }
-    sorted[j] = highval;
-    vals[index] = -1;
-    index = 0;
-    highval = -1;
   }
-
-  delete[] vals;
-  return sorted;
-  
 }
 
 void build(int* vals, int index, int size) {
@@ -147,9 +135,7 @@ void deleteVal(int* vals, int* size, int num) {
     if (vals[i] == num) {
       vals[i] = vals[*size-1];
       vals[*size-1] = 0;
-      cout << *size << endl;
       *size = *size - 1;
-      cout << *size << endl;
       return;
     }
   }

@@ -1,0 +1,8 @@
+#include <iostream>
+#include <ctsring>
+
+using namespace std;
+
+int main() {
+  cout << "PLACEHOLDER" << endl;
+}

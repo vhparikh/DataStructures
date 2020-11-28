@@ -11,8 +11,6 @@
 using namespace std;
 
 //prototypes
-void buildHelper(int* vals, int size);
-void build(int* vals, int index, int size);
 void print(int* vals, int size);
 void deleteVal(int* vals, int* size, int num);
 void sort(int* vals, int size);
@@ -89,13 +87,6 @@ int main() {
   }
 }
 
-void buildHelper(int* vals, int size) {
-  int startpoint = (size/2)-1;
-  for (int i = startpoint; i >= 0; i--) {
-    build(vals, i, size);
-  }
-}
-
 void sort(int* vals, int size) {
   
   for (int j = 0; j < size; j++) {
@@ -107,29 +98,6 @@ void sort(int* vals, int size) {
       }
     }
   }
-}
-
-void build(int* vals, int index, int size) {
-  int parentIndex = index;
-  int leftIndex = (2*index)+1;
-  int rightIndex = (2*index)+2;
-
-  if (leftIndex < size && vals[leftIndex] > vals[parentIndex]) {
-    parentIndex = leftIndex;
-  }
-
-  if (rightIndex < size && vals[rightIndex] > vals[parentIndex]) {
-    parentIndex = rightIndex;
-  }
-
-  if (parentIndex != index) {
-    int temp = vals[index];
-    vals[index] = vals[parentIndex];
-    vals[parentIndex] = temp;
-
-    build(vals, parentIndex, size);
-  }
-  
 }
 
 void print(int* vals, int size) {

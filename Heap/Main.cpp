@@ -6,8 +6,10 @@ using namespace std;
 
 void buildHelper(int* vals, int size);
 void build(int* vals, int index, int size);
-//void print(int* vals, int size);
-  
+void print(int* vals, int size);
+void deleteVal(int* vals, int* size, int num);
+int* sort(int* &vals, int size);
+
 int main() {
   char input[30];
   int* heap = new int[100];
@@ -41,17 +43,21 @@ int main() {
 	  cout << "invalid number" << endl;
 	}
       }
-      buildHelper(heap, size);
-      cout << "built" << endl;
+      cout << size << endl;
+      //buildHelper(heap, size);
+      heap = sort(heap, size);
     }
     else if (strcmp(input, "file") == 0) {
       //build with file
     }
     else if (strcmp(input, "delete") == 0) {
-      //delete
+      cout << "What value would you like to delete from the heap?" << endl;
+      cin >> num;
+      deleteVal(heap, &size, num);
+      buildHelper(heap, size);
     }
     else if (strcmp(input, "print") == 0) {
-      //      print(heap, size);
+      print(heap, size);
     }
     else if (strcmp(input, "quit") == 0) {
       quit = true;
@@ -66,8 +72,30 @@ void buildHelper(int* vals, int size) {
   int startpoint = (size/2)-1;
   for (int i = startpoint; i >= 0; i--) {
     build(vals, i, size);
-    cout << "called " << i << endl;
   }
+}
+
+int* sort(int* &vals, int size) {
+  int index = 0;
+  int highval = -1;
+  int* sorted = new int[size];
+
+  for (int j = 0; j < size; j++) {
+    for (int i = 0; i < size; i++) {
+      if (vals[i] > highval) {
+	highval = vals[i];
+	index = i;
+      }
+    }
+    sorted[j] = highval;
+    vals[index] = -1;
+    index = 0;
+    highval = -1;
+  }
+
+  delete[] vals;
+  return sorted;
+  
 }
 
 void build(int* vals, int index, int size) {
@@ -93,3 +121,37 @@ void build(int* vals, int index, int size) {
   
 }
 
+void print(int* vals, int size) {
+
+  int counter = 0;
+  int factor = 1;
+  cout << vals[0] << endl;
+  
+  for (int i = 1; i < size; i++) {
+    cout << vals[i] << "(" << vals[(int)floor((i-1)/2)] << ")" << " ";
+    counter++;
+    if (factor * 2 == counter) {
+      factor = factor * 2;
+      counter = 0;
+      cout << endl;
+    }
+  }
+
+  cout << endl;
+  
+}
+
+void deleteVal(int* vals, int* size, int num) {
+
+  for (int i = 0; i < *size; i++) {
+    if (vals[i] == num) {
+      vals[i] = vals[*size-1];
+      vals[*size-1] = 0;
+      cout << *size << endl;
+      *size = *size - 1;
+      cout << *size << endl;
+      return;
+    }
+  }
+  cout << "value is not in the heap" << endl;
+}

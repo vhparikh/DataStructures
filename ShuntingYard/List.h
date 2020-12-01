@@ -10,6 +10,8 @@ using namespace std;
 class List {
  public:
   List();
+  Node* peek();
+  Node* pop();
  private:
   Node* stackHead;
   Node* queueHead;

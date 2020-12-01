@@ -6,6 +6,7 @@
 using namespace std;
 
 int main() {
-  //List* list = new List();
+  List* list = new List();
   cout << "PLACEHOLDER" << endl;
+  //Node* n = new Node();
 }

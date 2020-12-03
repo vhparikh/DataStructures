@@ -87,6 +87,7 @@ int main() {
       print(heap, size);
     }
 
+    //if users wants to remove call remove
     else if (strcmp(input, "remove") == 0) {
       remove(heap, size);
     }
@@ -161,7 +162,10 @@ void deleteVal(int* vals, int* size, int num) {
   cout << "value is not in the heap" << endl;
 }
 
+//removes all values from heap and output lowest to highest
 void remove(int* vals, int size) {
+
+  //loop through array and print out values
   for (int i = 0; i < size; i++) {
     cout << vals[i] << " ";
     vals[i] = 0;

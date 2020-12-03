@@ -17,11 +17,14 @@ class Node {
   void setNext(Node* n);
   char* getCh();
   void setCh(char* c);
+  int getPrecedence();
+  void setPrecedence(int p);
  private:
   Node* left;
   Node* right;
   Node* next;
   char* ch;
+  int precedence;
 };
 
 #endif

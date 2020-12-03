@@ -38,3 +38,11 @@ char* Node::getCh() {
 void Node::setCh(char* c) {
   ch = c;
 }
+
+int Node::getPrecedence() {
+  return precedence;
+}
+
+void Node::setPrecedence(int p) {
+  precedence = p;
+}

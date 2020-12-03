@@ -14,6 +14,7 @@ using namespace std;
 void print(int* vals, int size);
 void deleteVal(int* vals, int* size, int num);
 void sort(int* vals, int size);
+void remove(int* vals, int size);
 
 int main() {
 
@@ -30,7 +31,7 @@ int main() {
     heap[i] = 0;
   }
 
-  cout << "Welcome to heap your commands are: add, file, delete, print, quit" << endl;
+  cout << "Welcome to heap your commands are: add, file, delete, print, remove, quit" << endl;
 
   //while user hasn't typed quit
   while (quit == false) {
@@ -86,6 +87,10 @@ int main() {
       print(heap, size);
     }
 
+    else if (strcmp(input, "remove") == 0) {
+      remove(heap, size);
+    }
+    
     //if user wants to quit set quit to true
     else if (strcmp(input, "quit") == 0) {
       quit = true;
@@ -154,4 +159,14 @@ void deleteVal(int* vals, int* size, int num) {
     }
   }
   cout << "value is not in the heap" << endl;
+}
+
+void remove(int* vals, int size) {
+  for (int i = 0; i < size; i++) {
+    cout << vals[i] << " ";
+    vals[i] = 0;
+  }
+  cout << endl;
+  cout << "The heap is now completely empty and all the values have been outputted above" << endl;
+  
 }

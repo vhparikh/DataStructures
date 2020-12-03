@@ -12,6 +12,9 @@ class List {
   List();
   Node* peek();
   Node* pop();
+  void push(Node* n);
+  void dequeue();
+  void enqueue(Node* n);
  private:
   Node* stackHead;
   Node* queueHead;

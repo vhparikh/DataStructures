@@ -15,6 +15,8 @@ class List {
   void push(Node* n);
   void dequeue();
   void enqueue(Node* n);
+  void printStack(); //for debug
+  void print();
  private:
   Node* stackHead;
   Node* queueHead;

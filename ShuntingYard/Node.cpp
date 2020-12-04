@@ -5,6 +5,12 @@ Node::Node() {
   right = NULL;
   next = NULL;
   ch = new char();
+  precedence = 0;
+  associate = 0;
+}
+
+Node::~Node() {
+  delete ch;
 }
 
 Node* Node::getLeft() {
@@ -45,4 +51,12 @@ int Node::getPrecedence() {
 
 void Node::setPrecedence(int p) {
   precedence = p;
+}
+
+int Node::getAssociate() {
+  return associate;
+}
+
+void Node::setAssociate(int a) {
+  associate = a;
 }

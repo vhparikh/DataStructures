@@ -16,30 +16,32 @@ Node* List::pop() {
   Node* temp = stackHead;
   stackHead = stackHead->getNext();
   temp->setNext(NULL);
+  //cout << "g" << endl;
   return temp;
 }
 
 void List::push(Node* n) {
 
-  if (strcmp(n->getCh(), "+") == 0 || strcmp(n->getCh(), "-") == 0) {
+  if (n->getCh() == '+' || n->getCh() == '-') {
     n->setPrecedence(2);
     n->setAssociate(1);
+    cout << "d" << endl;
   }
-  else if (strcmp(n->getCh(), "*") == 0 || strcmp(n->getCh(), "/") == 0) {
+  else if (n->getCh() == '*' || n->getCh() == '/') {
     n->setPrecedence(3);
     n->setAssociate(1);
   }
-  else if (strcmp(n->getCh(), "^") == 0) {
+  else if (n->getCh() == '^') {
     n->setPrecedence(4);
     n->setAssociate(2);
   }
 
-  if (strcmp(n->getCh(), ")") == 0) {
-    while (strcmp(stackHead->getCh(), "(") != 0 && stackHead != NULL) {
+  if (n->getCh() == ')') {
+    while (stackHead->getCh() != '(' && stackHead != NULL) {
       enqueue(pop());
     }
 
-    if (strcmp(stackHead->getCh(), "(") == 0) {
+    if (stackHead->getCh() == '(') {
       Node* temp = pop();
       temp->~Node();
       n->~Node();
@@ -60,10 +62,11 @@ void List::push(Node* n) {
   
   while ((stackHead != NULL) && ((stackHead->getPrecedence() > n->getPrecedence()) ||
 				 (stackHead->getPrecedence() == n->getPrecedence() && n->getAssociate() == 1)) &&
-	 (strcmp(stackHead->getCh(), "(") != 0)) {
-    //cout << "jumped in" << endl;
+	 (stackHead->getCh() != '(')) {
+    cout << "e" << endl;
     //cout << stackHead->getPrecedence() << endl;
     enqueue(pop());
+    cout << "f" << endl;
     //cout << "popped" << endl;
   }
   n->setNext(stackHead);
@@ -86,15 +89,20 @@ void List::enqueue(Node* n) {
 
   if (queueHead == NULL) {
     queueHead = n;
+    cout << "h" << endl;
     return;
   }
 
   Node* current = queueHead;
-  while(queueHead->getNext() != NULL) {
+  cout << "i" << endl;
+  while(current->getNext() != NULL) {
     current = current->getNext();
+    cout << "j" << endl;
   }
 
+  cout << "k" << endl;
   current->setNext(n);
+  cout << "l" << endl;
 }
 
 //for debug
@@ -118,11 +126,16 @@ void List::printStack() {
 
 void List::print() {
   Node* current = queueHead;
-  cout << "D" << endl;
+  //cout << "D" << endl;
   while (current != NULL) {
     cout << current->getCh();
     current = current->getNext();
   }
-  cout << "E" << endl;
+
+  while (stackHead != NULL) {
+    cout << pop()->getCh();
+  }
+  
+  //cout << "E" << endl;
   cout << endl;
 }

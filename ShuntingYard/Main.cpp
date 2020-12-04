@@ -12,16 +12,19 @@ int main() {
   cin.get(input, 80);
   cin.get();
 
-  for (int i = 0; i < 3; i++) {
-    char* val;
-    val = &input[i];
-    if (strcmp(val, "+") == 0 || strcmp(val, "-") == 0 ||
-	strcmp(val, "*") == 0 || strcmp(val, "/") == 0 ||
-	strcmp(val, "^") == 0 || strcmp(val, "(") == 0 ||
-	strcmp(val, ")") == 0) {
+  for (int i = 0; i < strlen(input); i++) {
+    char val;
+    val = input[i];
+    //cout << "broke here" << endl;
+    if (val == '+' || val == '-' || val == '*' || val == '/' ||
+	val == '^' || val == '(' || val == ')') {
+      cout << "in" << endl;
       Node* n = new Node();
+      cout << "a" << endl;
       n->setCh(val);
+      cout << "b" << endl;
       list->push(n);
+      cout << "c" << endl;
       cout << "pushed" << endl;
     }
     else {

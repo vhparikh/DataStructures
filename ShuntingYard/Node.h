@@ -16,8 +16,8 @@ class Node {
   void setLeft(Node* n);
   void setRight(Node* n);
   void setNext(Node* n);
-  char* getCh();
-  void setCh(char* c);
+  char getCh();
+  void setCh(char c);
   int getPrecedence();
   void setPrecedence(int p);
   int getAssociate();
@@ -26,7 +26,7 @@ class Node {
   Node* left;
   Node* right;
   Node* next;
-  char* ch;
+  char ch;
   int precedence;
   int associate; //1 is left and 2 is right (0 is for operands)
 };

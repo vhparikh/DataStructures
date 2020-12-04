@@ -4,13 +4,13 @@ Node::Node() {
   left = NULL;
   right = NULL;
   next = NULL;
-  ch = new char();
+  //  ch = new char();
   precedence = 0;
   associate = 0;
 }
 
 Node::~Node() {
-  delete ch;
+  //delete ch;
 }
 
 Node* Node::getLeft() {
@@ -37,11 +37,11 @@ void Node::setNext(Node* n) {
   next = n;
 }
 
-char* Node::getCh() {
+char Node::getCh() {
   return ch;
 }
 
-void Node::setCh(char* c) {
+void Node::setCh(char c) {
   ch = c;
 }
 

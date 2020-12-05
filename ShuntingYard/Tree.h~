@@ -1,0 +1,16 @@
+#include <iostream>
+#include <cstring>
+#include "List.h"
+#include "Node.h"
+
+using namespace std;
+
+#ifndef TREE_H
+#define TREE_H
+
+class Tree {
+ public:
+ private:
+};
+
+#endif

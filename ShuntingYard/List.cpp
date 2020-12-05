@@ -20,12 +20,12 @@ Node* List::pop() {
   return temp;
 }
 
-void List::push(Node* n) {
+void List::push(Node* n, bool tree) {
 
   if (n->getCh() == '+' || n->getCh() == '-') {
     n->setPrecedence(2);
     n->setAssociate(1);
-    cout << "d" << endl;
+    //    cout << "d" << endl;
   }
   else if (n->getCh() == '*' || n->getCh() == '/') {
     n->setPrecedence(3);
@@ -62,11 +62,17 @@ void List::push(Node* n) {
   
   while ((stackHead != NULL) && ((stackHead->getPrecedence() > n->getPrecedence()) ||
 				 (stackHead->getPrecedence() == n->getPrecedence() && n->getAssociate() == 1)) &&
-	 (stackHead->getCh() != '(')) {
-    cout << "e" << endl;
-    //cout << stackHead->getPrecedence() << endl;
+	 (stackHead->getCh() != '(') && (tree == false)) {
+    //cout << "e" << endl;
+    cout << endl;
+    cout << stackHead->getCh() << endl;
+    cout << stackHead->getPrecedence() << endl;
+    cout << endl;
+    cout << n->getCh() << endl;
+    cout << n->getPrecedence() << endl;
+    cout << endl;
     enqueue(pop());
-    cout << "f" << endl;
+    //cout << "f" << endl;
     //cout << "popped" << endl;
   }
   n->setNext(stackHead);
@@ -89,20 +95,20 @@ void List::enqueue(Node* n) {
 
   if (queueHead == NULL) {
     queueHead = n;
-    cout << "h" << endl;
+    //cout << "h" << endl;
     return;
   }
 
   Node* current = queueHead;
-  cout << "i" << endl;
+  //cout << "i" << endl;
   while(current->getNext() != NULL) {
     current = current->getNext();
-    cout << "j" << endl;
+    //cout << "j" << endl;
   }
 
-  cout << "k" << endl;
+  //cout << "k" << endl;
   current->setNext(n);
-  cout << "l" << endl;
+  //cout << "l" << endl;
 }
 
 //for debug
@@ -124,18 +130,27 @@ void List::printStack() {
   
 }
 
-void List::print() {
+char* List::print() {
   Node* current = queueHead;
+  char* post = new char[80];
+  int counter = 0;
+  
   //cout << "D" << endl;
   while (current != NULL) {
     cout << current->getCh();
+    post[counter] = current->getCh();
+    counter++;
     current = current->getNext();
   }
 
   while (stackHead != NULL) {
-    cout << pop()->getCh();
+    char ch = pop()->getCh();
+    cout << ch;
+    post[counter] = ch;
+    counter++;
   }
   
   //cout << "E" << endl;
   cout << endl;
+  return post;
 }

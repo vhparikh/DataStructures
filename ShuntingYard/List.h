@@ -12,11 +12,11 @@ class List {
   List();
   Node* peek();
   Node* pop();
-  void push(Node* n);
+  void push(Node* n, bool tree);
   void dequeue();
   void enqueue(Node* n);
   void printStack(); //for debug
-  void print();
+  char* print();
  private:
   Node* stackHead;
   Node* queueHead;

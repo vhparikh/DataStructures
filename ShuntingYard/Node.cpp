@@ -5,7 +5,7 @@ Node::Node() {
   right = NULL;
   next = NULL;
   //  ch = new char();
-  precedence = 0;
+  precedence = 10;
   associate = 0;
 }
 

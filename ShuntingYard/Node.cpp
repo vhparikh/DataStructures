@@ -1,3 +1,7 @@
+//Created by Vatsal Parikh
+//Date: 12/1/20
+//.cpp file for node class all comments are in .h file
+
 #include "Node.h"
 
 Node::Node() {

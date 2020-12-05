@@ -1,24 +1,31 @@
+//Created by Vatsal Parikh
+//Date: 12/1/20
+//.h file for list class
+
+//imports
 #include <iostream>
 #include <cstring>
 #include "Node.h"
 
 using namespace std;
 
+//start of header guard
 #ifndef LIST_H
 #define LIST_H
 
 class List {
  public:
-  List();
-  Node* peek();
-  Node* pop();
-  void push(Node* n, bool tree);
-  void dequeue();
-  void enqueue(Node* n);
-  char* print();
+  List(); //constructor
+  Node* peek(); //return top node in stack
+  Node* pop(); //pops top node in stack and returns it
+  void push(Node* n, bool tree); //pushes node into stack
+  void dequeue(); //removes top node in queue
+  void enqueue(Node* n); //adds nodes to end of queue
+  char* print(); //prints out postfix and returns it by char*
  private:
-  Node* stackHead;
-  Node* queueHead;
+  Node* stackHead; //head of stack
+  Node* queueHead; //head of queue
 };
 
+//end of header guard
 #endif

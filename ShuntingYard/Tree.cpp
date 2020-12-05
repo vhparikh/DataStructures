@@ -31,21 +31,21 @@ Node* Tree::build() {
 
 void Tree::infix(Node* n) {
   if (n != NULL) {
-    /*    if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||
+    if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||
 	n->getCh() == '/' || n->getCh() == '^') {
-      cout << "(" << endl;
-    }*/
+      cout << "(";
+    }
     if (n->getLeft() != NULL) {
       infix(n->getLeft());
     }
-    cout << n->getCh() << endl;
+    cout << n->getCh();
     if (n->getRight() != NULL) {
       infix(n->getRight());
     }
-    /*if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                                 
-        n->getCh() == '/' || n->getCh() == '^') {
-      cout << ")" << endl;
-      }*/
+    if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                              
+	n->getCh() == '/' || n->getCh() == '^') {
+      cout << ")";
+    }
   }
 }
 
@@ -53,13 +53,13 @@ void Tree::postfix(Node* n) {
   if (n != NULL) {
     postfix(n->getLeft());
     postfix(n->getRight());
-    cout << n->getCh() << endl;
+    cout << n->getCh();
   }
 }
 
 void Tree::prefix(Node* n) {
   if (n != NULL) {
-    cout << n->getCh() << endl;
+    cout << n->getCh();
     prefix(n->getLeft());
     prefix(n->getRight());
   }

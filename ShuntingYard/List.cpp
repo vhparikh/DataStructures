@@ -64,13 +64,13 @@ void List::push(Node* n, bool tree) {
 				 (stackHead->getPrecedence() == n->getPrecedence() && n->getAssociate() == 1)) &&
 	 (stackHead->getCh() != '(') && (tree == false)) {
     //cout << "e" << endl;
-    cout << endl;
+    /*    cout << endl;
     cout << stackHead->getCh() << endl;
     cout << stackHead->getPrecedence() << endl;
     cout << endl;
     cout << n->getCh() << endl;
     cout << n->getPrecedence() << endl;
-    cout << endl;
+    cout << endl;*/
     enqueue(pop());
     //cout << "f" << endl;
     //cout << "popped" << endl;

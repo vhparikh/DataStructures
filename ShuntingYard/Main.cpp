@@ -44,19 +44,23 @@ int main() {
   Node* t = tree->build();
 
   cout << "Would you like to convert to infix, postfix or prefix?" << endl;
-  cin >> input;
+  cin.get(input, 80);
+  cin.get();
 
   if (strcmp(input, "infix") == 0) {
     cout << "Here is infix form" << endl;
     tree->infix(t);
+    cout << endl;
   }
   else if (strcmp(input, "postfix") == 0) {
     cout << "Here is postfix form" << endl;
     tree->postfix(t);
+    cout << endl;
   }
   else if (strcmp(input, "prefix") == 0) {
     cout << "Here is prefix form" << endl;
     tree->prefix(t);
+    cout << endl;
   }
   //cout << "done" << endl;
   

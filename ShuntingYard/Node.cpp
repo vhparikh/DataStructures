@@ -4,13 +4,11 @@ Node::Node() {
   left = NULL;
   right = NULL;
   next = NULL;
-  //  ch = new char();
   precedence = 10;
   associate = 0;
 }
 
 Node::~Node() {
-  //delete ch;
 }
 
 Node* Node::getLeft() {

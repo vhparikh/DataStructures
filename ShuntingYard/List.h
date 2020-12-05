@@ -15,7 +15,6 @@ class List {
   void push(Node* n, bool tree);
   void dequeue();
   void enqueue(Node* n);
-  void printStack(); //for debug
   char* print();
  private:
   Node* stackHead;

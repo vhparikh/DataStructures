@@ -6,8 +6,6 @@ Tree::Tree(char* e) {
 }
 
 Node* Tree::build() {
-  //List* stack = new List();
-
   for (int i = 0; i < strlen(expression); i++) {
     char val;
     val = expression[i];
@@ -35,13 +33,11 @@ void Tree::infix(Node* n) {
 	n->getCh() == '/' || n->getCh() == '^') {
       cout << "(";
     }
-    if (n->getLeft() != NULL) {
-      infix(n->getLeft());
-    }
+  
+    infix(n->getLeft());
     cout << n->getCh();
-    if (n->getRight() != NULL) {
-      infix(n->getRight());
-    }
+    infix(n->getRight());
+    
     if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                              
 	n->getCh() == '/' || n->getCh() == '^') {
       cout << ")";

@@ -7,7 +7,7 @@ using namespace std;
 #define NODE_H
 
 class Node {
- public:
+public:
   Node();
   Node* getLeft();
   Node* getRight();
@@ -15,7 +15,7 @@ class Node {
   void setRight(Node* r);
   int getNum();
   void setNum(int n);
- private:
+private:
   Node* left;
   Node* right;
   int num;

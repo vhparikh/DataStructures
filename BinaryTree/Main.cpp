@@ -160,10 +160,17 @@ void remove(Node* &n, int val) {
     if (n->getLeft() != NULL && n->getRight() != NULL) {
       Node* temp = n->getLeft();
       while (temp->getRight() != NULL) {
-	temp = temp->getRight();
+	if (temp->getRight()->getRight() == NULL) {
+	  break;
+	}
+	else {
+	  temp = temp->getRight();
+	}
       }
-      n->setNum(temp->getNum());
-      
+      n->setNum(temp->getRight()->getNum());
+      Node* place = temp->getRight()->getLeft();
+      delete temp->getRight();
+      temp->setRight(place);
       return;
     }
   }

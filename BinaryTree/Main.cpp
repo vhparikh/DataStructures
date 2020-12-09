@@ -8,7 +8,7 @@ using namespace std;
 void add(Node* &n, int val);
 void print(Node* n, int space);
 void search(Node* n, int val);
-void remove(Node* &n, int val);
+void remove(Node* &n, int val, Node* &p, Node* &head);
 
 int main() {
 
@@ -51,7 +51,12 @@ int main() {
       cout << "Enter the number you would like to remove" << endl;
       cin >> data;
       cin.get();
-      remove(head, data);
+      if (head != NULL) {	
+	remove(head, data, head, head);
+      }
+      else {
+	cout << "The tree is empty there is nothing to delete" << endl;
+      }
     }
     else if (strcmp(input, "print") == 0) {
       print(head, 0);
@@ -86,7 +91,7 @@ void add(Node* &n, int val) {
     }
   }
 
-  if (n->getNum() < val) {
+  if (n->getNum() <= val) {
     if (n->getRight() == NULL) {
       Node* temp = new Node();
       temp->setNum(val);
@@ -127,7 +132,7 @@ void search(Node* n, int val) {
 
   if (n->getNum() == val) {
     cout << "yes the number exists" << endl;
-    return;
+    return ;
   }
 
   if (n->getNum() > val) {
@@ -154,17 +159,16 @@ void search(Node* n, int val) {
   
 }
 
-void remove(Node* &n, int val) {
-}
 
-/*
-void remove(Node* &n, int val) {
+void remove(Node* &n, int val, Node* &p, Node* &head) {
 
   if (n->getNum() == val) {
+
     if (n->getLeft() != NULL && n->getRight() != NULL) {
       Node* temp = n->getLeft();
-      Node* prev = n;
+      Node* prev = NULL;
       int counter = 0;
+      int nval;
       while (temp->getRight() != NULL) {
 	if (counter >= 1) {
 	  temp = temp->getRight();
@@ -172,31 +176,36 @@ void remove(Node* &n, int val) {
 	}
 	else {
 	  temp = temp->getRight();
-	  prev = prev->getLeft();
+	  prev = n->getLeft();
 	}
 	counter++;
       }
 
-      if (temp->getLeft() != NULL) {
-	Node* placeholder = temp->getLeft();
-	n->setNum(temp->getNum());
-	//prev->setNum(placeholder->getNum());
-	//prev->setLeft(placeholder->getLeft());
-	prev->setRight(placeholder);
-	delete placeholder;
-	delete temp;
-	temp = NULL;
-	placeholder = NULL;
+      nval = temp->getNum();
+      remove(temp, temp->getNum(), prev, head);
+      Node* replace = new Node();
+      replace->setNum(nval);
+      replace->setRight(n->getRight());
+      replace->setLeft(n->getLeft());
+      
+      if (p->getNum() > val) {
+	p->setLeft(replace);
       }
       else {
-	n->setNum(temp->getNum());
-	delete temp;
-	temp = NULL;
-	if (prev != n) {
-	  prev->setRight(temp);
-	}
+	p->setRight(replace);
       }
       
+      if (n == head) {
+	Node* del = head;
+	delete del;
+	head = replace;
+	cout << head->getNum() << endl;
+	cout << head->getRight()->getNum() << endl;
+	cout << head->getLeft()->getNum() << endl;
+      }
+      
+      delete n;
+      n = NULL;
       return;
     }
 
@@ -219,8 +228,21 @@ void remove(Node* &n, int val) {
     }
 
     if (n->getLeft() == NULL && n->getRight() == NULL) {
-      //delete n;
-      //n = NULL;
+      
+      if (p->getNum() > n->getNum()) {
+	delete n;
+	n = NULL;
+	p->setLeft(n);
+      }
+      else if (p->getNum() < n->getNum()) {
+	delete n;
+	n = NULL;
+	p->setRight(n);
+      }
+      else {
+	delete p;
+	p = NULL;
+      }
       return;
     }
     
@@ -229,7 +251,7 @@ void remove(Node* &n, int val) {
   if (n->getNum() > val) {
     if (n->getLeft() != NULL) {
       Node* temp = n->getLeft();
-      remove(temp, val);
+      remove(temp, val, n, head);
     }
     else {
       cout << "This value is not in the tree" << endl;
@@ -240,7 +262,7 @@ void remove(Node* &n, int val) {
   if (n->getNum() < val) {
     if (n->getRight() != NULL) {
       Node* temp = n->getRight();
-      remove(temp, val);
+      remove(temp, val, n, head);
     }
     else {
       cout << "This value is not in the tree" << endl;                                                            
@@ -249,4 +271,4 @@ void remove(Node* &n, int val) {
   }
   
 }
-*/
+

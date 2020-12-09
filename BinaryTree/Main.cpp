@@ -1,3 +1,8 @@
+//Created by Vatsal Parikh
+//Date: 12/9/20
+//Creates a binary tree
+
+//imports
 #include <iostream>
 #include <cstring>
 #include <fstream> 
@@ -5,6 +10,7 @@
 
 using namespace std;
 
+//prototypes
 void add(Node* &n, int val);
 void print(Node* n, int space);
 void search(Node* n, int val);
@@ -166,7 +172,7 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
 
     if (n->getLeft() != NULL && n->getRight() != NULL) {
       Node* temp = n->getLeft();
-      Node* prev = NULL;
+      Node* prev = n;
       int counter = 0;
       int nval;
       while (temp->getRight() != NULL) {
@@ -196,12 +202,13 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       }
       
       if (n == head) {
-	Node* del = head;
-	delete del;
-	head = replace;
-	cout << head->getNum() << endl;
-	cout << head->getRight()->getNum() << endl;
-	cout << head->getLeft()->getNum() << endl;
+	delete n;
+	n = NULL;
+	n = replace;
+	//cout << head->getNum() << endl;
+	//cout << head->getRight()->getNum() << endl;
+	//cout << head->getLeft()->getNum() << endl;
+	return;
       }
       
       delete n;

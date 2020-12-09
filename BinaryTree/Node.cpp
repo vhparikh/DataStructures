@@ -3,6 +3,7 @@
 Node::Node() {
   left = NULL;
   right = NULL;
+  num = 0;
 }
 
 Node* Node::getLeft() {

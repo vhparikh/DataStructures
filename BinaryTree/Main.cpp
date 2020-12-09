@@ -1,6 +1,7 @@
 //Created by Vatsal Parikh
 //Date: 12/9/20
 //Creates a binary tree
+//print function logic is from geekforgeeks 
 
 //imports
 #include <iostream>
@@ -18,23 +19,29 @@ void remove(Node* &n, int val, Node* &p, Node* &head);
 
 int main() {
 
-  char input[80];
-  int data;
-  Node* head = NULL;
+  char input[80]; //stores user commands
+  int data; //stores value user wants to add
+  Node* head = NULL; //head node of tree
   bool quit = false;
 
   cout << "Welcome to Binary Search Tree" << endl;
-  
+
+  //while user hasn't typed quit
   while (!quit) {
+
+    //gets users command
     cin.get(input, 80);
     cin.get();
 
+    //if user wants to add ask for number then call add
     if (strcmp(input, "add") == 0) {
       cout << "Enter the number you would like to add" << endl;
       cin >> data;
       cin.get();
       add(head, data);
     }
+
+    //else if user wants to use file input get file path get each value in file and call add on it
     else if (strcmp(input, "file") == 0) {
       cout << "Enter the file path" << endl;
       cin.get(input, 80);
@@ -47,12 +54,16 @@ int main() {
       }
       file.close();
     }
+
+    //else if user wants to search ask for value and call search on it
     else if (strcmp(input, "search") == 0) {
       cout << "Enter the number you would like to search for" << endl;
       cin >> data;
       cin.get();
       search(head, data);
     }
+
+    //else if user wants to remove ask for value check if tree isn't empty then call remove on it
     else if (strcmp(input, "remove") == 0) {
       cout << "Enter the number you would like to remove" << endl;
       cin >> data;
@@ -64,12 +75,20 @@ int main() {
 	cout << "The tree is empty there is nothing to delete" << endl;
       }
     }
+
+    //else if user wants to print call print
     else if (strcmp(input, "print") == 0) {
+      cout << endl;
       print(head, 0);
+      cout << endl;
     }
+
+    //else if user wants to quit set quit to true
     else if (strcmp(input, "quit") == 0) {
       quit = true;
     }
+
+    //else user typed an invalid command
     else {
       cout << "invalid command" << endl;
     }
@@ -78,31 +97,44 @@ int main() {
   
 }
 
+//adds value into the tree
 void add(Node* &n, int val) {
+
+  //if the head node is null make the value the head node
   if (n == NULL) {
     n = new Node();
     n->setNum(val);
     return;
   }
 
+  //if the value is less than the current nodes value
   if (n->getNum() > val) {
+
+    //if the current nodes left is empty add the node there
     if (n->getLeft() == NULL) {
       Node* temp = new Node();
       temp->setNum(val);
       n->setLeft(temp);
     }
+
+    //else call add on the left node
     else {
       Node* temp = n->getLeft();
       add(temp, val);
     }
   }
 
+  //if the value is more than the current nodes value
   if (n->getNum() <= val) {
+
+    //if the current nodes right is empty add the node there
     if (n->getRight() == NULL) {
       Node* temp = new Node();
       temp->setNum(val);
       n->setRight(temp);
     }
+
+    //else call add on the right node
     else {
       Node* temp = n->getRight();
       add(temp, val);
@@ -111,8 +143,10 @@ void add(Node* &n, int val) {
   
 }
 
+//prints out the tree sideways
 void print(Node* n, int space) {
 
+  //if the 
   if (n == NULL) {
     return;
   }
@@ -205,9 +239,6 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
 	delete n;
 	n = NULL;
 	n = replace;
-	//cout << head->getNum() << endl;
-	//cout << head->getRight()->getNum() << endl;
-	//cout << head->getLeft()->getNum() << endl;
 	return;
       }
       

@@ -16,13 +16,13 @@ using namespace std;
 
 class Tree {
  public:
-  Tree(char* e); //constructor
+  Tree(Node* q); //constructor
   Node* build(); //builds tree
   void infix(Node* n); //traverses tree to get infix form
   void postfix(Node* n); //traveres tree to get postfix form
   void prefix(Node* n); //traverses tree to get prefix form
  private:
-  char* expression; //stores postfix expression needed to create tree
+  Node* qh; //stores postfix expression needed to create tree
   List* stack; //list pointer to build tree
 };
 

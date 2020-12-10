@@ -22,8 +22,8 @@ class Node {
   void setLeft(Node* n); //sets left node
   void setRight(Node* n); //sets right node
   void setNext(Node* n); //sets next node
-  char getCh(); //returns char value stored in node
-  void setCh(char c); //sets char value stored in node
+  int getNum(); //returns char value stored in node
+  void setNum(int n); //sets char value stored in node
   int getPrecedence(); //returns precedence value
   void setPrecedence(int p); //gets precedence value
   int getAssociate(); //returns associative value
@@ -32,7 +32,8 @@ class Node {
   Node* left; //node pointer to left node (for tree)
   Node* right; //node pointer to right node (for tree)
   Node* next; //node pointer to next node (for stacks and queues)
-  char ch; //char value for node
+  //  char ch; //char value for node
+  int num;
   int precedence; //precendence value of node
   int associate; //1 is left and 2 is right (0 is for operands)
 };

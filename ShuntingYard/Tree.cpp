@@ -6,13 +6,13 @@
 #include "Tree.h"
 
 //constructor requires a char*
-Tree::Tree(char* e) {
+Tree::Tree(Node* q) {
   
   //set expression to e and create new list
-  expression = e;
+  qh = q;
   stack = new List();
 }
-
+/*
 //builds tree
 Node* Tree::build() {
 
@@ -44,6 +44,66 @@ Node* Tree::build() {
   //return top node of stack
   return stack->peek();
 }
+*/
+Node* Tree::build() {
+  while (qh != NULL) {
+     //if and operator push                                                                                                          
+    if (qh->getNum() == -1) {                                                                                                               
+      Node* n = new Node();                                                                                                         
+      n->setNum(-1);                                                                                                                
+      n->setPrecedence(2);                                                                                                          
+      n->setAssociate(1);                                                                                                           
+      n->setRight(stack->pop());                                                                                                                         
+      n->setLeft(stack->pop());      
+      stack->push(n, true);                                                                                                         
+    }
+    else if (qh->getNum() == -2) {                                                                                                                        
+      Node* n = new Node();                                                                                                                               
+      n->setNum(-2);                                                                                                                                      
+      n->setPrecedence(2);                                                                                                                                
+      n->setAssociate(1);                                                                                                                                 
+      n->setRight(stack->pop());                                                                                                                          
+      n->setLeft(stack->pop());                                                                                                                           
+      stack->push(n, true);                                                                                                                               
+    }
+    else if (qh->getNum() == -3) {                                                                                                                    
+      Node* n = new Node();                                                                                                                               
+      n->setNum(-3);                                                                                                                                      
+      n->setPrecedence(3);                                                                                                                                
+      n->setAssociate(1);                                                                                                                                 
+      n->setRight(stack->pop());                                                                                                                          
+      n->setLeft(stack->pop());                                                                                                                           
+      stack->push(n, true);                                                                                                                               
+    }                                                                                                                                                    
+    else if (qh->getNum() == -4) {                                                                                                                   
+      Node* n = new Node();                                 
+      n->setNum(-4);                                                                                                                                      
+      n->setPrecedence(3);                                                                                                                                
+      n->setAssociate(1);                                                                                                                                 
+      n->setRight(stack->pop());                                                                                                                          
+      n->setLeft(stack->pop());                                                                                                                           
+      stack->push(n, true);                                                                                                                               
+    }
+    else if (qh->getNum() == -5) {                                                                                                                        
+      Node* n = new Node();                                                                                                                               
+      n->setNum(-5);                                                                                                                                      
+      n->setPrecedence(4);                                                                                                                                
+      n->setAssociate(2);                                                                                                                                 
+      n->setRight(stack->pop());                                                                                                                          
+      n->setLeft(stack->pop());                                                                                                                           
+      stack->push(n, true);                                                                                                                               
+    }
+    else {
+      Node* n = new Node();                                                                                                                               
+      n->setNum(qh->getNum());                                                                                                     
+      stack->push(n, true);                                                                                                                               
+    }
+    qh = qh->getNext();
+  }
+
+  return stack->peek();
+  
+}
 
 //traverses tree to create infix form starts with top node
 void Tree::infix(Node* n) {
@@ -51,26 +111,42 @@ void Tree::infix(Node* n) {
   //if the node isn't null
   if (n != NULL) {
 
-    //if the node is an operator add a (
+    /*  //if the node is an operator add a (
     if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||
 	n->getCh() == '/' || n->getCh() == '^') {
       cout << "(";
-    }
+      }*/
 
     //call infix on the nodes left subtree
     infix(n->getLeft());
 
     //print out the value in the node
-    cout << n->getCh();
-
+    if (n->getNum() == -1) {
+      cout << "+ ";
+    }
+    else if (n->getNum() == -2) {
+      cout << "- ";
+    }
+    else if (n->getNum() == -3) {
+      cout << "* ";
+    }
+    else if (n->getNum() == -4) {
+      cout << "/ ";
+    }
+    else if (n->getNum() == -5) {
+      cout << "^ ";
+    }
+    else {
+      cout << n->getNum() << " ";
+    }
     //call infix on the nodes right subtree
     infix(n->getRight());
 
     //if the node is an operator add a )
-    if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                              
+    /* if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                              
 	n->getCh() == '/' || n->getCh() == '^') {
       cout << ")";
-    }
+      }*/
   }
 }
 
@@ -85,9 +161,25 @@ void Tree::postfix(Node* n) {
 
     //call postfix on the right subtree
     postfix(n->getRight());
-
-    //print out the value in the node
-    cout << n->getCh();
+    
+    if (n->getNum() == -1) {                                                                                                                              
+      cout << "+ ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -2) {                                                                                                                         
+      cout << "- ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -3) {                                                                                                                         
+      cout << "* ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -4) {                                                                                                                         
+      cout << "/ ";                                                                                                                                      
+    }                                                                                                                                                     
+    else if (n->getNum() == -5) {                                                                                                                         
+      cout << "^ ";                                                                                                                                       
+    }                                                                                                                                                     
+    else {                                                                                                                                                
+      cout << n->getNum() << " ";                                                                                                                         
+    }              
   }
 }
 
@@ -96,9 +188,25 @@ void Tree::prefix(Node* n) {
 
   //if the node isn't null
   if (n != NULL) {
-
-    //print out value of node
-    cout << n->getCh();
+    
+    if (n->getNum() == -1) {                                                                                                                              
+      cout << "+ ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -2) {                                                                                                                         
+      cout << "- ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -3) {                                                                                                                         
+      cout << "* ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -4) {                                                                                                                         
+      cout << "/ ";                                                                                                                                       
+    }                                                                                                                                                     
+    else if (n->getNum() == -5) {                                                                                                                         
+      cout << "^ ";                                                                                                                                       
+    }                                                                                                                                                     
+    else {                                                                                                                                                
+      cout << n->getNum() << " ";                                                                                                                         
+    }
 
     //call prefix on the left subtree
     prefix(n->getLeft());

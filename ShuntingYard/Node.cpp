@@ -39,12 +39,12 @@ void Node::setNext(Node* n) {
   next = n;
 }
 
-char Node::getCh() {
-  return ch;
+int Node::getNum() {
+  return num;
 }
 
-void Node::setCh(char c) {
-  ch = c;
+void Node::setNum(int n) {
+  num = n;
 }
 
 int Node::getPrecedence() {

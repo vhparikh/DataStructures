@@ -21,7 +21,8 @@ class List {
   void push(Node* n, bool tree); //pushes node into stack
   void dequeue(); //removes top node in queue
   void enqueue(Node* n); //adds nodes to end of queue
-  char* print(); //prints out postfix and returns it by char*
+  void print(); //prints out postfix and returns it by char*
+  Node* getQueue();
  private:
   Node* stackHead; //head of stack
   Node* queueHead; //head of queue

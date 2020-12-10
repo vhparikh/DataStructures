@@ -146,51 +146,67 @@ void add(Node* &n, int val) {
 //prints out the tree sideways
 void print(Node* n, int space) {
 
-  //if the 
+  //if the node is null we end the print
   if (n == NULL) {
     return;
   }
-  
-  space += 10;  
+
+  //add 10 spaces for printing
+  space += 10;
+
+  //print right subtree
   print(n->getRight(), space);  
-  cout<<endl;
-  
+  cout << endl;
+
+  //print spaces until space limit is met
   for (int i = 10; i < space; i++) {
     cout<<" ";
   }
 
+  //print number
   cout<<n->getNum()<<"\n";
+
+  //print right subtree
   print(n->getLeft(), space);
 }
 
+//searches for a value in the tree
 void search(Node* n, int val) {
 
+  //the head node is null the tree is empty
   if (n == NULL) {
     cout << "the tree is empty" << endl;
     return;
   }
 
+  //if the number of node matches val the node has been found
   if (n->getNum() == val) {
     cout << "yes the number exists" << endl;
     return ;
   }
 
+  //if value is less than node value check left tree
   if (n->getNum() > val) {
     if (n->getLeft() != NULL) {
       Node* temp = n->getLeft();
       search(temp, val);
     }
+
+    //if left tree was empty return
     else {
       cout << "The number isn't on the tree" << endl;
       return;
     }
   }
 
+  //if value is more than node value check right tree
   if (n->getNum() < val) {
     if (n->getRight() != NULL) {
       Node* temp = n->getRight();
       search(temp, val);
     }
+
+    //if right tree was empty return
     else {
       cout << "The number isn't on the tree" << endl;
       return;
@@ -199,11 +215,13 @@ void search(Node* n, int val) {
   
 }
 
-
+//removes values from tree n is current node, val is value to delete, p is previous node, head is head node of tree
 void remove(Node* &n, int val, Node* &p, Node* &head) {
 
+  //if the value is found
   if (n->getNum() == val) {
 
+    //if node has two children we will find the next largest node in tree
     if (n->getLeft() != NULL && n->getRight() != NULL) {
       Node* temp = n->getLeft();
       Node* prev = n;
@@ -222,6 +240,8 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       }
 
       nval = temp->getNum();
+
+      //delete the next largest node as its values will be put into a new node
       remove(temp, temp->getNum(), prev, head);
       Node* replace = new Node();
       replace->setNum(nval);
@@ -234,7 +254,8 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       else {
 	p->setRight(replace);
       }
-      
+
+      //if we are deleting the head node delete head and set it to the new node we made
       if (n == head) {
 	delete n;
 	n = NULL;
@@ -247,7 +268,10 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       return;
     }
 
+    //if there is only a left child
     if (n->getLeft() != NULL) {
+
+      //set n to everything temp has and then delete temp
       Node* temp = n->getLeft();
       n->setNum(temp->getNum());
       n->setRight(temp->getRight());
@@ -256,7 +280,10 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       return;
     }
 
+    //if there is only a right child
     if (n->getRight() != NULL) {
+
+      //set n to everything temp has and then delete temp
       Node* temp = n->getRight();
       n->setNum(temp->getNum());
       n->setRight(temp->getRight());
@@ -265,6 +292,7 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
       return;
     }
 
+    //if there are no children deletion is dependent on what side number is of previous node
     if (n->getLeft() == NULL && n->getRight() == NULL) {
       
       if (p->getNum() > n->getNum()) {
@@ -285,7 +313,8 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
     }
     
   }
-  
+
+  //if val is less than current node value traverse to left subtree if not null
   if (n->getNum() > val) {
     if (n->getLeft() != NULL) {
       Node* temp = n->getLeft();
@@ -297,6 +326,7 @@ void remove(Node* &n, int val, Node* &p, Node* &head) {
     }
   }
 
+  //if val is more than current node value traverse to right subtree if not null
   if (n->getNum() < val) {
     if (n->getRight() != NULL) {
       Node* temp = n->getRight();

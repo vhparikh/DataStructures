@@ -1,4 +1,4 @@
-A//Created by Vatsal Parikh
+//Created by Vatsal Parikh
 //Date: 12/1/20
 //Uses Shunting yard algorithm to convert infix to postfix
 //Creates binary expression tree with postfix
@@ -16,7 +16,7 @@ using namespace std;
 int main() {
 
   //prompt user for an infix equation
-  cout << "enter an equation in infix form without spaces" << endl;
+  cout << "enter an equation in infix form with spaces" << endl;
   List* list = new List();
   char* input = new char[80];
   char* post = new char[80];

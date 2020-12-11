@@ -12,42 +12,12 @@ Tree::Tree(Node* q) {
   qh = q;
   stack = new List();
 }
-/*
+
 //builds tree
 Node* Tree::build() {
-
-  //loop through the postfix expression
-  for (int i = 0; i < strlen(expression); i++) {
-
-    //stores the one char we are looking at
-    char val;
-    val = expression[i];
-
-    //if it is and operator create new node and pop twice from stack to create a left and right child and then push it back into the stack
-    if (val == '+' || val == '-' || val == '*' ||
-	val == '/' || val == '^') {
-      Node* n = new Node();
-      n->setCh(val);
-      n->setRight(stack->pop());
-      n->setLeft(stack->pop());
-      stack->push(n, true);
-    }
-
-    //else create a new node and just push it onto the stack
-    else {
-      Node* n = new Node();
-      n->setCh(val);
-      stack->push(n, true);
-    }
-  }
-
-  //return top node of stack
-  return stack->peek();
-}
-*/
-Node* Tree::build() {
   while (qh != NULL) {
-     //if and operator push                                                                                                          
+
+    //if an operator pop twice and then push subtree into stack
     if (qh->getNum() == -1) {                                                                                                               
       Node* n = new Node();                                                                                                         
       n->setNum(-1);                                                                                                                
@@ -84,19 +54,21 @@ Node* Tree::build() {
       n->setLeft(stack->pop());                                                                                                                           
       stack->push(n, true);                                                                                                                               
     }
-    else if (qh->getNum() == -5) {                                                                                                                        
-      Node* n = new Node();                                                                                                                               
-      n->setNum(-5);                                                                                                                                      
-      n->setPrecedence(4);                                                                                                                                
-      n->setAssociate(2);                                                                                                                                 
-      n->setRight(stack->pop());                                                                                                                          
-      n->setLeft(stack->pop());                                                                                                                           
-      stack->push(n, true);                                                                                                                               
+    else if (qh->getNum() == -5) {                                                                                         
+      Node* n = new Node();                                                                                               
+      n->setNum(-5);                                                                                                        
+      n->setPrecedence(4);                                                                                                   
+      n->setAssociate(2);                                                                                                 
+      n->setRight(stack->pop());                                                                                            
+      n->setLeft(stack->pop());                                                                                             
+      stack->push(n, true);                                                                                                  
     }
+    
+    //else its just a number and push it onto the stack
     else {
-      Node* n = new Node();                                                                                                                               
-      n->setNum(qh->getNum());                                                                                                     
-      stack->push(n, true);                                                                                                                               
+      Node* n = new Node();                                                                                                
+      n->setNum(qh->getNum());                                                                                              
+      stack->push(n, true); 
     }
     qh = qh->getNext();
   }
@@ -111,16 +83,16 @@ void Tree::infix(Node* n) {
   //if the node isn't null
   if (n != NULL) {
 
-    /*  //if the node is an operator add a (
-    if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||
-	n->getCh() == '/' || n->getCh() == '^') {
-      cout << "(";
-      }*/
+    //if the node is an operator add a (
+    if (n->getNum() == -1 || n->getNum() == -2 || n->getNum() == -3 ||
+	n->getNum() == -4 || n->getNum() == -5) {
+      cout << "( ";
+    }
 
     //call infix on the nodes left subtree
     infix(n->getLeft());
 
-    //print out the value in the node
+    //figure out if its an operator or normal number and print based off that
     if (n->getNum() == -1) {
       cout << "+ ";
     }
@@ -139,14 +111,15 @@ void Tree::infix(Node* n) {
     else {
       cout << n->getNum() << " ";
     }
+    
     //call infix on the nodes right subtree
     infix(n->getRight());
 
     //if the node is an operator add a )
-    /* if (n->getCh() == '+' || n->getCh() == '-' || n->getCh() == '*' ||                                                              
-	n->getCh() == '/' || n->getCh() == '^') {
+    if (n->getNum() == -1 || n->getNum() == -2 || n->getNum() == -3 ||                                                              
+	n->getNum() == -4 || n->getNum() == -5) {
       cout << ")";
-      }*/
+    }
   }
 }
 
@@ -161,7 +134,8 @@ void Tree::postfix(Node* n) {
 
     //call postfix on the right subtree
     postfix(n->getRight());
-    
+
+    //figure out if its an operator or normal number and print based off that
     if (n->getNum() == -1) {                                                                                                                              
       cout << "+ ";                                                                                                                                       
     }                                                                                                                                                     
@@ -188,7 +162,8 @@ void Tree::prefix(Node* n) {
 
   //if the node isn't null
   if (n != NULL) {
-    
+
+    //figure out if its an operator or normal number and print based off that
     if (n->getNum() == -1) {                                                                                                                              
       cout << "+ ";                                                                                                                                       
     }                                                                                                                                                     

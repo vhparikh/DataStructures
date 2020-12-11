@@ -118,7 +118,7 @@ void Tree::infix(Node* n) {
     //if the node is an operator add a )
     if (n->getNum() == -1 || n->getNum() == -2 || n->getNum() == -3 ||                                                              
 	n->getNum() == -4 || n->getNum() == -5) {
-      cout << ")";
+      cout << ") ";
     }
   }
 }

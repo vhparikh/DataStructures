@@ -26,8 +26,6 @@ int main() {
   //goes through input and either pushes to stack or enqueues
   for (int i = 0; i < strlen(input); i++) {
     char val;
-    //char num[5];
-    //num[0] = input[i];
     val = input[i];
     
     //if and operator push
@@ -51,8 +49,6 @@ int main() {
       n->setPrecedence(3);                                                                                                       
       n->setAssociate(1);
       list->push(n, false);
-      //cout << n->getNum() << endl;
-      //cout << "*" << endl;
     }
     else if (val == '/') {
       Node* n = new Node();                                                                                                        
@@ -78,32 +74,27 @@ int main() {
       n->setNum(-7);                                                                                                               
       list->push(n, false);
     }
-    //else enqueue
+    //else if not a space enqueue
     else if (input[i] != ' ') {
+
+      //take string # and convert to int to enter into node
       char num[5];
       int counter = 0;
       while (input[i] != ' ' && i < strlen(input)) {
-	//cout << "A" << endl;
 	num[counter] = input[i];
 	i++;
 	counter++;
       }
       num[counter] = '\0';
-      //cout << num << endl;
-      //cout << input[i] << endl;
       int data = 0;
-      //data = input[i] - '0';
       for (int j = 0; j < strlen(num); j++) {
 	data *= 10;
 	data += num[j] - 48;
-	//i++;
       }
       
       Node* n = new Node();
       n->setNum(data);
       list->enqueue(n);
-      //cout << data << endl;
-      //i++;
     }
   }
 

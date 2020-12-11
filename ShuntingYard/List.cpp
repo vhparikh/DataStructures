@@ -32,24 +32,6 @@ Node* List::pop() {
 //pushes node onto stack
 void List::push(Node* n, bool tree) {
 
-  /*  //if it is a + or - give it a precedence value of 2 and associative value of 1
-  if (n->getCh() == '+' || n->getCh() == '-') {
-    n->setPrecedence(2);
-    n->setAssociate(1);
-  }
-
-  //else if it is a * or / give it a precedence value of 3 and associative value of 1
-  else if (n->getCh() == '*' || n->getCh() == '/') {
-    n->setPrecedence(3);
-    n->setAssociate(1);
-  }
-
-  //else if it is a ^ give it a precedence value of 4 and associative value of 2
-  else if (n->getCh() == '^') {
-    n->setPrecedence(4);
-    n->setAssociate(2);
-    }*/
-
   //if it is a )
   if (n->getNum() == -7) {
 
@@ -84,7 +66,6 @@ void List::push(Node* n, bool tree) {
   //add the node to stack
   n->setNext(stackHead);
   stackHead = n;
-  //cout << "pushed" << endl;
 }
 
 //removes top node in queue
@@ -112,7 +93,6 @@ void List::enqueue(Node* n) {
     current = current->getNext();
   }
   current->setNext(n);
-  //cout << "queued" << endl;
 }
 
 //prints out the postfix form and returns a char* with it
@@ -121,10 +101,7 @@ void List::print() {
   //create a node to go through the queue
   Node* current = queueHead;
 
-  //char* to store postfix to return
-  //char* post = new char[80];
-  //int counter = 0;
-
+  //pop everything off the stack and enqueue it
   while (stackHead != NULL) {                                                                                                                 
     Node* n = pop();                                                                                                                          
     enqueue(n);                                                                                                                               
@@ -153,18 +130,11 @@ void List::print() {
     current = current->getNext();
   }
 
-  /*//while the stack isn't empty pop and print the value and add it to post
-  while (stackHead != NULL) {
-    Node* n = pop();
-    enqueue(n);
-    }*/
-  
   cout << endl;
 
-  //returns post
-  //  return post;
 }
 
+//returns queue head to traverse links
 Node* List::getQueue() {
   return queueHead;
 }

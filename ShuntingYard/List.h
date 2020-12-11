@@ -22,7 +22,7 @@ class List {
   void dequeue(); //removes top node in queue
   void enqueue(Node* n); //adds nodes to end of queue
   void print(); //prints out postfix and returns it by char*
-  Node* getQueue();
+  Node* getQueue(); //returns queue head
  private:
   Node* stackHead; //head of stack
   Node* queueHead; //head of queue
